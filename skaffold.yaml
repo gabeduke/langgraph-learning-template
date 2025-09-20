@@ -1,0 +1,101 @@
+apiVersion: skaffold/v4beta11
+kind: Config
+metadata:
+  name: langgraph-agent
+  labels:
+    app: langgraph-agent
+build:
+  artifacts:
+    - image: dukeman/langgraph
+      docker:
+        dockerfile: Dockerfile
+  local:
+    push: true
+  tagPolicy:
+    sha256: {}
+deploy:
+  helm:
+    releases:
+      - name: langgraph-agent
+        chartPath: ./helm/langgraph-agent
+        valuesFiles:
+          - ./helm/langgraph-agent/values.yaml
+        namespace: langgraph-agent
+        setValues:
+          image.pullPolicy: Always
+          image.repository: dukeman/langgraph
+          replicaCount: "1"
+          resources.limits.cpu: 500m
+          resources.limits.memory: 512Mi
+          resources.requests.cpu: 100m
+          resources.requests.memory: 128Mi
+        createNamespace: true
+    hooks:
+      before:
+        - host:
+            command: ["./scripts/create-secret.sh"]
+portForward:
+  - resourceType: service
+    resourceName: langgraph-agent
+    port: 8000
+    localPort: 8000
+profiles:
+  - name: dev
+    build:
+      artifacts:
+        - image: dukeman/langgraph
+          docker:
+            dockerfile: Dockerfile
+      local:
+        push: true
+    deploy:
+      helm:
+        releases:
+          - name: langgraph-agent
+            chartPath: ./helm/langgraph-agent
+            valuesFiles:
+              - ./helm/langgraph-agent/values.yaml
+            namespace: langgraph-agent
+            setValues:
+              image.pullPolicy: Always
+              image.repository: dukeman/langgraph
+              replicaCount: "1"
+              resources.limits.cpu: 500m
+              resources.limits.memory: 512Mi
+              resources.requests.cpu: 100m
+              resources.requests.memory: 128Mi
+            createNamespace: true
+        hooks:
+          before:
+            - host:
+                command: ["./scripts/create-secret.sh"]
+  - name: prod
+    build:
+      artifacts:
+        - image: dukeman/langgraph
+          docker:
+            dockerfile: Dockerfile
+      googleCloudBuild:
+        projectId: your-project-id
+    deploy:
+      helm:
+        releases:
+          - name: langgraph-agent
+            chartPath: ./helm/langgraph-agent
+            valuesFiles:
+              - ./helm/langgraph-agent/values.yaml
+            namespace: langgraph-agent
+            setValues:
+              autoscaling.enabled: "true"
+              image.pullPolicy: Always
+              image.repository: dukeman/langgraph
+              replicaCount: "3"
+              resources.limits.cpu: 1000m
+              resources.limits.memory: 1Gi
+              resources.requests.cpu: 250m
+              resources.requests.memory: 256Mi
+            createNamespace: true
+        hooks:
+          before:
+            - host:
+                command: ["./scripts/create-secret.sh"]

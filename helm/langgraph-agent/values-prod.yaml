@@ -1,0 +1,83 @@
+# Production values for langgraph-agent
+replicaCount: 3
+
+image:
+  repository: dukeman/langgraph
+  tag: "latest"
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 8000
+  targetPort: 8000
+
+# Production resource limits
+resources:
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+# Enable autoscaling for production
+autoscaling:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 80
+
+# Health check configuration
+healthCheck:
+  enabled: true
+  path: /health
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+# Production environment variables
+env:
+  OPENAI_API_KEY: ""
+
+# Security context for production
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+
+podSecurityContext:
+  fsGroup: 1000
+  runAsNonRoot: true
+  runAsUser: 1000
+
+# Production pod annotations
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "8000"
+  prometheus.io/path: "/metrics"
+
+# Node selector for production
+nodeSelector:
+  kubernetes.io/os: linux
+
+# Tolerations for production
+tolerations: []
+
+# Affinity for production
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - weight: 100
+      podAffinityTerm:
+        labelSelector:
+          matchExpressions:
+          - key: app.kubernetes.io/name
+            operator: In
+            values:
+            - langgraph-agent
+        topologyKey: kubernetes.io/hostname

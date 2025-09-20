@@ -1,0 +1,107 @@
+# Template Repository Configuration
+# This file contains metadata for the GitHub template repository
+
+template_info:
+  name: "LangGraph Learning Template"
+  description: "A comprehensive LangGraph learning template with 5 structured learning plans, production-ready setup, and MuleSoft integration path."
+  version: "1.0.0"
+  author: "Gabe Duke"
+  license: "MIT"
+  
+  # Template categories
+  categories:
+    - "langgraph"
+    - "langchain"
+    - "ai-agents"
+    - "learning-template"
+    - "mulesoft"
+    - "kubernetes"
+    - "docker"
+    - "fastapi"
+    - "python"
+    - "machine-learning"
+    - "artificial-intelligence"
+    - "tutorial"
+    - "educational"
+
+  # Template features
+  features:
+    - "5 Comprehensive Learning Plans"
+    - "Production-Ready Setup"
+    - "Docker & Kubernetes Support"
+    - "Comprehensive Testing Framework"
+    - "MuleSoft Integration Path"
+    - "FastAPI Web Interface"
+    - "Streaming Support"
+    - "Memory Management"
+    - "Tool Integration"
+    - "State Management"
+
+  # Prerequisites
+  prerequisites:
+    - "Python 3.8+"
+    - "Docker and Docker Compose"
+    - "Kubernetes cluster (for deployment)"
+    - "OpenAI API key"
+
+  # Quick start commands
+  quick_start:
+    - "git clone <repo-url>"
+    - "cd <repo-name>"
+    - "make setup"
+    - "make setup-env"
+    - "make test-learning-01"
+
+  # Learning path
+  learning_path:
+    - "Understand Current Code"
+    - "Interfaces and Extensibility"
+    - "State Stores and Persistence"
+    - "Production Patterns"
+    - "MuleSoft Integration"
+
+  # Template files to customize
+  customizable_files:
+    - "src/agent/core.py"
+    - "src/agent/modern.py"
+    - "src/api/routes.py"
+    - "docs/learning-plans/"
+    - "helm/langgraph-agent/"
+    - "test_*.py"
+
+  # Template variables (for future use)
+  variables:
+    project_name: "langgraph-agent"
+    namespace: "langgraph-agent"
+    image_repository: "dukeman/langgraph"
+    port: 8000
+
+  # Documentation
+  documentation:
+    main_readme: "README.md"
+    template_readme: "template-README.md"
+    learning_plans: "docs/learning-plans/"
+    setup_guide: ".github/template-repository-setup.md"
+    setup_script: "setup-template.sh"
+
+  # Testing
+  testing:
+    framework: "pytest"
+    test_files: "test_*.py"
+    learning_tests: "docs/learning-plans/test_learning_*.py"
+    coverage: true
+    parallel: true
+
+  # Deployment
+  deployment:
+    local: "docker-compose up"
+    kubernetes: "make helm-install"
+    skaffold: "make dev"
+    production: "make prod-deploy"
+
+  # Support
+  support:
+    issues: true
+    discussions: true
+    wiki: false
+    pages: false

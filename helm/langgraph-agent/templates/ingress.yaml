@@ -1,0 +1,33 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "langgraph-agent.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "langgraph-agent.labels" . | nindent 4 }}
+  annotations:
+    cert-manager.io/cluster-issuer: {{ .Values.ingress.certManager.issuer }}
+    external-dns.alpha.kubernetes.io/hostname: {{ .Values.ingress.hostname }}
+    ingress.kubernetes.io/ssl-redirect: "true"
+    kubernetes.io/ingress.class: traefik
+spec:
+  ingressClassName: traefik
+  rules:
+  - host: {{ .Values.ingress.hostname }}
+    http:
+      paths:
+      - backend:
+          service:
+            name: {{ include "langgraph-agent.fullname" . }}
+            port:
+              number: {{ .Values.service.port }}
+        path: /
+        pathType: Prefix
+  {{- if .Values.ingress.tls.enabled }}
+  tls:
+  - hosts:
+    - {{ .Values.ingress.hostname }}
+    secretName: {{ include "langgraph-agent.fullname" . }}-tls
+  {{- end }}
+{{- end }}

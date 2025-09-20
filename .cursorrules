@@ -1,0 +1,167 @@
+# Cursor Rules for LangGraph Agent Framework
+# =========================================
+
+## Project Overview
+This is a LangGraph agent framework designed for homelab deployment with Kubernetes and Helm. It provides a foundation for understanding LangGraph concepts before building MuleSoft-specific integrations.
+
+## Learning Context
+This repository includes comprehensive learning plans in `docs/learning-plans/` that guide users through:
+1. Understanding the current LangGraph implementation
+2. Mastering LangGraph interfaces and extensibility
+3. Learning state management and persistence patterns
+4. Building production-ready applications
+5. Integrating with MuleSoft ecosystems
+
+Each learning plan includes hands-on exercises, comprehensive test files, and clear success criteria.
+
+## Development Preferences
+
+### Code Organization
+- Use Makefiles instead of individual scripts for all operations
+- Prefer comprehensive, well-documented Makefiles with color-coded output
+- Consolidate related functionality into single files when possible
+- Use clear, descriptive variable names and function names
+
+### Project Structure
+- Keep a clean, logical directory structure
+- Use `src/` for source code with proper module organization
+- Separate concerns: `agent/` for core logic, `api/` for web interface
+- Use Helm charts for Kubernetes deployment
+- Include Skaffold configuration for development iteration
+
+### Docker & Containerization
+- Use multi-stage builds for production efficiency
+- Prefer Kubernetes health checks over Docker health checks
+- Use non-root users for security
+- Keep Dockerfiles clean and minimal
+- Use `.dockerignore` to exclude unnecessary files
+
+### Kubernetes & Deployment
+- Use Helm charts for deployment management
+- Prefer Skaffold for development iteration
+- Include both development and production profiles
+- Use proper resource limits and requests
+- Implement proper security contexts
+
+### Testing & Quality
+- Create comprehensive test scripts
+- Test both local and containerized deployments
+- Include setup validation tests
+- Use color-coded output for test results
+- Prefer automated testing over manual verification
+- Include learning plan test files with detailed validation
+- Test both local and ingress endpoints
+- Validate learning exercise implementations
+
+### Documentation
+- Keep README files comprehensive and up-to-date
+- Include clear examples and usage instructions
+- Document all available commands and options
+- Use proper markdown formatting with emojis for clarity
+- Include project structure diagrams
+- Create detailed learning plans with hands-on exercises
+- Include comprehensive test files for each learning plan
+- Document success criteria and next steps clearly
+
+### Error Handling
+- Provide clear, actionable error messages
+- Use color coding (red for errors, green for success, yellow for warnings)
+- Include helpful next steps in error messages
+- Validate dependencies and prerequisites
+
+### Environment Management
+- Use `.env` files for configuration
+- Provide `.env.example` templates
+- Support both local and containerized environments
+- Use virtual environments for Python development
+
+### Code Style
+- Follow Python best practices
+- Use type hints where appropriate
+- Prefer explicit over implicit
+- Use meaningful variable and function names
+- Keep functions focused and single-purpose
+
+### Git & Version Control
+- Use comprehensive `.gitignore` files
+- Exclude build artifacts, cache files, and sensitive data
+- Include common development files and directories
+
+### API Design
+- Use FastAPI for web APIs
+- Include proper Pydantic models
+- Provide both REST and streaming endpoints
+- Include health check endpoints
+- Use proper HTTP status codes
+
+### Security
+- Use non-root users in containers
+- Implement proper security contexts
+- Use secrets for sensitive data
+- Validate inputs and sanitize outputs
+- Follow principle of least privilege
+
+## Specific Patterns
+
+### Makefile Patterns
+- Use `.PHONY` for non-file targets
+- Include help targets with descriptions
+- Use color-coded output with variables
+- Group related commands logically
+- Include dependency checking
+
+### LangGraph Patterns
+- Use modern LangGraph patterns (MessagesState, create_react_agent)
+- Support both custom and prebuilt implementations
+- Include proper state management
+- Use memory checkpointing for development
+- Support streaming responses
+- Follow learning plan patterns for extensibility
+- Include comprehensive test coverage for learning exercises
+- Document patterns and best practices for educational purposes
+
+### Kubernetes Patterns
+- Use proper labels and selectors
+- Include health checks (liveness and readiness probes)
+- Use ConfigMaps and Secrets appropriately
+- Include proper resource limits
+- Support horizontal pod autoscaling
+
+## File Naming Conventions
+- Use kebab-case for directories and files
+- Use descriptive names that indicate purpose
+- Use `.yaml` for Kubernetes manifests
+- Use `.py` for Python files
+- Use `Makefile` for build automation
+
+## Comments and Documentation
+- Use clear, concise comments
+- Explain the "why" not just the "what"
+- Include usage examples
+- Document configuration options
+- Keep comments up-to-date with code changes
+
+## Error Messages
+- Be specific about what went wrong
+- Provide actionable next steps
+- Use consistent formatting
+- Include relevant context
+- Avoid technical jargon when possible
+
+## Learning Plan Development
+- Create structured learning plans with clear objectives
+- Include hands-on exercises with expected outputs
+- Provide comprehensive test files for validation
+- Document success criteria and completion requirements
+- Include additional resources for deeper understanding
+- Support iterative learning with clear next steps
+- Test both local and ingress endpoints in learning exercises
+- Validate learning progress through automated testing
+
+## Development Workflow
+- Support both local and containerized development
+- Provide quick-start commands
+- Include comprehensive testing
+- Support hot reload for development
+- Make deployment easy and repeatable
+- Support learning plan development and validation
