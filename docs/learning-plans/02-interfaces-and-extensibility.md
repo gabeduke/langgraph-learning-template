@@ -1,7 +1,47 @@
 # Learning Plan 2: LangGraph Interfaces and Extensibility
 
+## 🚨 IMPORTANT: Test-Driven Learning Approach
+
+**This learning plan uses FAILING TESTS as your guide!**
+
+- ❌ **Tests will FAIL by default** - this is intentional!
+- 📖 **Read failing tests** to understand what to implement
+- 🔧 **Implement solutions** to make tests pass
+- ✅ **Tests passing** means you've mastered the concept
+
+### Quick Start
+```bash
+# Run the tests - they will fail (this is good!)
+make test-learning PLAN=02
+
+# Read the first failure, implement the solution in the specified file
+# Re-run tests until they all pass
+```
+
+### How to Interpret Test Failures
+
+When you run the tests, you'll see errors like:
+```
+ModuleNotFoundError: No module named 'agent.custom_nodes'
+NotImplementedError: You need to implement the execute method for MultiOperationNode
+```
+
+**This is exactly what should happen!** Each error tells you:
+1. **What file to create** (e.g., `src/agent/custom_nodes.py`)
+2. **What class to implement** (e.g., `MultiOperationNode`)
+3. **What methods to add** (e.g., `execute()` method)
+4. **Expected behavior** (described in the test)
+
+### Implementation Workflow
+
+1. **Run tests** → See which file is missing
+2. **Create the file** → Start with the stub classes we provided
+3. **Read test requirements** → Understand expected inputs/outputs
+4. **Implement the class** → Make the test pass
+5. **Repeat** → Move to next failing test
+
 ## 🎯 Objective
-Deep dive into LangGraph's interfaces, understand how to extend them, and learn advanced patterns for building sophisticated agent systems.
+Deep dive into LangGraph's interfaces, understand how to extend them, and learn advanced patterns for building sophisticated agent systems through hands-on implementation guided by failing tests.
 
 ## 📚 What You'll Learn
 - LangGraph's core interfaces and abstractions

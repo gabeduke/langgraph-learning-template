@@ -1,7 +1,38 @@
 # Learning Plan 1: Understand Current LangGraph Implementation
 
+## 🚨 IMPORTANT: Test-Driven Understanding Approach
+
+**This learning plan uses FAILING TESTS to guide your understanding!**
+
+- 🟢 **Some tests pass** - existing functionality works correctly
+- 🔴 **Some tests fail** - you need to implement basic extensions  
+- 📖 **Read failing tests** to understand what to implement
+- 🔧 **Implement solutions** to prove your understanding
+- ✅ **Tests passing** means you've demonstrated mastery
+
+### Quick Start
+```bash
+# Run the tests - some will fail (this is expected!)
+make test-learning PLAN=01
+
+# Read the failing tests to understand what to implement
+# Implement the basic extensions in the specified files
+# Re-run tests until they all pass
+```
+
+### How Test-Driven Understanding Works
+
+When you run the tests, you'll see:
+- ✅ **Existing functionality tests pass** - the current code works
+- ❌ **Extension tests fail** - you need to implement these
+
+**This is intentional!** Each failing test shows:
+1. **What extension to implement** (enhanced calculator, new tools, etc.)
+2. **Where to implement it** (specific file paths)
+3. **Expected behavior** (inputs, outputs, requirements)
+
 ## 🎯 Objective
-Gain a deep understanding of the current LangGraph implementation by examining the codebase, extending examples, and creating new functionality.
+Gain a deep understanding of the current LangGraph implementation by examining the codebase, then proving your knowledge through hands-on implementation of basic extensions.
 
 ## 📚 What You'll Learn
 - How LangGraph state management works with `MessagesState`
@@ -35,55 +66,63 @@ Gain a deep understanding of the current LangGraph implementation by examining t
 - Simplified API with same functionality
 - Demonstrates best practices
 
-## 🧪 Learning Exercises
+## 🧪 Test-Driven Learning Exercises
 
-### Exercise 1: Code Analysis
-**Goal**: Understand the current implementation deeply
+**IMPORTANT**: These exercises are validated by failing tests. You must implement the solutions to make tests pass!
 
-**Tasks**:
-1. Read through `src/agent/core.py` and trace the execution flow
-2. Compare with `src/agent/modern.py` to understand the differences
-3. Examine the API routes in `src/api/routes.py`
-4. Study the Pydantic models in `src/api/models.py`
-
-**Expected Output**: Document the key differences between custom and modern implementations
-
-### Exercise 2: Extend the Tool System
-**Goal**: Add new tools and understand the integration pattern
+### Exercise 1: Tool Extensions (TestBasicToolExtensions)
+**Goal**: Prove understanding by extending existing tools
 
 **Tasks**:
-1. Create a new tool for file operations (read, write, list)
-2. Add a web search tool using requests
-3. Create a tool that calls external APIs
-4. Test the new tools with the existing agents
+1. **Enhanced Calculator** - Extend calculator to support power (^), sqrt(), and percentage operations
+2. **New Utility Tools** - Create reverse_string, word_count, and upper_lower tools  
+3. **Enhanced Agent** - Create LearningEnhancedAgent that includes all tools
 
-**Expected Output**: Working tools that demonstrate different integration patterns
+**Implementation Files**: 
+- `src/agent/learning_extensions.py`
 
-### Exercise 3: Custom State Management
-**Goal**: Understand how to extend state beyond MessagesState
+**Test Command**: `pytest docs/learning-plans/test_learning_01.py::TestBasicToolExtensions -v`
 
-**Tasks**:
-1. Create a custom state that includes user preferences
-2. Add conversation context tracking
-3. Implement tool usage analytics
-4. Add conversation metadata
-
-**Expected Output**: Enhanced state management with custom fields
-
-### Exercise 4: Advanced Graph Patterns
-**Goal**: Learn complex graph construction patterns
+### Exercise 2: State Management Extensions (TestBasicStateExtensions)  
+**Goal**: Demonstrate understanding of state management
 
 **Tasks**:
-1. Create a multi-step workflow (e.g., research → analyze → summarize)
-2. Add conditional branching based on user input
-3. Implement parallel tool execution
-4. Create a feedback loop for tool refinement
+1. **Session Tracker** - Create SessionState and SessionTracker classes
+2. **Message Analyzer** - Build MessageHistoryAnalyzer for conversation insights
 
-**Expected Output**: Complex graph workflows with advanced patterns
+**Implementation Files**:
+- `src/agent/learning_extensions.py`
 
-## 🧪 Test File: `test_learning_01.py`
+**Test Command**: `pytest docs/learning-plans/test_learning_01.py::TestBasicStateExtensions -v`
 
-This test file will validate your understanding and extensions:
+### Exercise 3: Graph Extensions (TestBasicGraphExtensions)
+**Goal**: Demonstrate understanding of graph construction
+
+**Tasks**:
+1. **Conditional Routing** - Create ConditionalRoutingAgent with different paths for questions vs commands
+2. **Logging Wrapper** - Build LoggingGraphWrapper to track graph execution
+
+**Implementation Files**:
+- `src/agent/learning_extensions.py`
+
+**Test Command**: `pytest docs/learning-plans/test_learning_01.py::TestBasicGraphExtensions -v`
+
+### Exercise 4: API Extensions (TestBasicAPIExtensions)
+**Goal**: Prove understanding of API integration patterns
+
+**Tasks**:
+1. **Tool Info Endpoint** - Create GET /tools/info to list all available tools
+2. **Session Stats Endpoint** - Create GET /session/{id}/stats for session analytics
+
+**Implementation Files**:
+- `src/api/learning_routes.py`
+- Update `main.py` to include new routes
+
+**Test Command**: `pytest docs/learning-plans/test_learning_01.py::TestBasicAPIExtensions -v`
+
+## 🧪 Running the Tests
+
+The test file validates your understanding through hands-on implementation:
 
 ```python
 #!/usr/bin/env python3
@@ -145,11 +184,19 @@ if __name__ == "__main__":
 
 ## 📋 Success Criteria
 
-- [ ] Can explain the difference between custom and modern implementations
-- [ ] Successfully added 3+ new tools with different integration patterns
-- [ ] Created custom state management beyond MessagesState
-- [ ] Built complex graph workflows with conditional logic
-- [ ] All tests pass and demonstrate understanding
+Complete Learning Plan 1 when you can:
+
+- [ ] **All tests pass** - `make test-learning PLAN=01` shows all green ✅
+- [ ] **Tool Extensions** - Enhanced calculator + 3 new utility tools working
+- [ ] **Enhanced Agent** - LearningEnhancedAgent includes all tools
+- [ ] **State Management** - SessionTracker and MessageHistoryAnalyzer implemented
+- [ ] **Graph Variations** - ConditionalRoutingAgent and LoggingGraphWrapper working
+- [ ] **API Extensions** - Tool info and session stats endpoints functional
+- [ ] **Code Understanding** - Can explain how existing agents, tools, and state work
+
+**Test Command**: `make test-learning PLAN=01`
+
+**Expected Result**: All tests should pass, proving your understanding through working implementations.
 
 ## 🔗 Next Steps
 

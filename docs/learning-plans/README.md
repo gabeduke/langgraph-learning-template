@@ -43,19 +43,40 @@ Each learning plan includes:
 - **Next Steps**: Path to continue learning
 - **Additional Resources**: Links to relevant documentation
 
-## 🧪 Testing Your Progress
+## 🧪 Test-Driven Learning Approach
 
-Each learning plan includes a comprehensive test file that validates your understanding:
+**IMPORTANT**: Starting with Learning Plan 2, we use **test-driven learning** where tests **FAIL BY DEFAULT**!
 
+### How It Works
+1. **🔴 Tests fail initially** - This is intentional and expected
+2. **📖 Read the failing test** - Each test describes exactly what you need to implement
+3. **💡 Understand the requirement** - Tests show expected inputs, outputs, and behavior
+4. **🔧 Implement the solution** - Write code in the specified files to make tests pass
+5. **✅ Test passes** - Move on to the next test
+6. **🎓 Complete the learning plan** - All tests passing means you've mastered the concepts
+
+### Running Tests
 ```bash
-# Run tests for a specific learning plan
-python test_learning_01.py
-python test_learning_02.py
-# ... etc
+# Run tests for a specific learning plan (will show failures to guide learning)
+make test-learning PLAN=01    # Learning Plan 1 (guidance tests)
+make test-learning PLAN=02    # Learning Plan 2 (test-driven learning)
 
 # Run all learning plan tests
 pytest docs/learning-plans/test_learning_*.py -v
+
+# Run only unit tests (no API calls)
+make test-learning-unit
 ```
+
+### Implementation Files
+When tests fail, implement your solutions in these files:
+- `src/agent/custom_nodes.py` - Custom node implementations
+- `src/agent/custom_state.py` - Advanced state management  
+- `src/agent/state_manager.py` - State transition logic
+- `src/agent/checkpointers.py` - Custom checkpointing systems
+- `src/agent/tool_chains.py` - Tool chaining systems
+- `src/agent/retry_handler.py` - Retry and error handling
+- And more... (tests will tell you which files to create!)
 
 ## 📋 Learning Plan Details
 

@@ -99,3 +99,37 @@ profiles:
           before:
             - host:
                 command: ["./scripts/create-secret.sh"]
+  - name: kind
+    build:
+      artifacts:
+        - image: dukeman/langgraph
+          docker:
+            dockerfile: Dockerfile
+      local:
+        push: false # Critical for Kind - load images directly
+        useDockerCLI: false
+    deploy:
+      helm:
+        releases:
+          - name: langgraph-agent
+            chartPath: ./helm/langgraph-agent
+            valuesFiles:
+              - ./helm/langgraph-agent/values-kind.yaml
+            namespace: langgraph-agent
+            setValues:
+              image.pullPolicy: IfNotPresent
+              image.repository: dukeman/langgraph
+              replicaCount: "1"
+              resources.limits.cpu: 500m
+              resources.limits.memory: 512Mi
+              resources.requests.cpu: 100m
+              resources.requests.memory: 128Mi
+              ingress.enabled: "true" # Enable nginx ingress
+              ingress.className: "nginx"
+              ingress.hostname: "langgraph.local"
+              ingress.tls.enabled: "false"
+            createNamespace: true
+        hooks:
+          before:
+            - host:
+                command: ["./scripts/create-secret.sh"]

@@ -1,0 +1,75 @@
+# Kind-specific values for langgraph-agent
+replicaCount: 1
+image:
+  repository: dukeman/langgraph
+  tag: "latest"
+  pullPolicy: IfNotPresent # Use local images loaded into kind
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+podAnnotations: {}
+podSecurityContext:
+  fsGroup: 1000
+securityContext:
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: false
+  runAsNonRoot: true
+  runAsUser: 1000
+service:
+  type: ClusterIP
+  port: 8000
+  targetPort: 8000
+# Ingress configuration for kind clusters
+ingress:
+  enabled: true # Always enabled for Kind clusters
+  className: "nginx" # Kind uses nginx ingress controller
+  hostname: "langgraph.local"
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    # Override traefik annotations from base values
+    kubernetes.io/ingress.class: "nginx"
+  certManager:
+    issuer: "" # No cert-manager in basic kind
+  tls:
+    enabled: false # No TLS for local development
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+# Disable autoscaling for kind
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+nodeSelector: {}
+tolerations: []
+affinity: {}
+# Redis disabled - using memory checkpointing
+redis:
+  enabled: false
+# Environment variables
+env:
+  OPENAI_API_KEY: ""
+# Health check configuration optimized for kind
+healthCheck:
+  enabled: true
+  path: /health
+  initialDelaySeconds: 10 # Faster startup for dev
+  periodSeconds: 5
+  timeoutSeconds: 3
+  failureThreshold: 3
+# Kind-specific pod annotations
+podAnnotations:
+  # Remove production monitoring annotations
+  skaffold.dev/run-id: "{{ .Values.skaffoldRunId | default \"local\" }}"
